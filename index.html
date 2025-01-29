@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Valentine's Gift</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0b1522;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .heart {
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        position: relative;
+        transform: rotate(-45deg);
+        box-shadow: -10px 10px 90px #f20044;
+        animation: heart 0.6s linear infinite;
+        margin-bottom: 50px;
+      }
+
+      @keyframes heart {
+        0% {
+          transform: rotate(-45deg) scale(1.07);
+        }
+        80% {
+          transform: rotate(-45deg) scale(1);
+        }
+        100% {
+          transform: rotate(-45deg) scale(0.8);
+        }
+      }
+
+      .heart::before {
+        content: "";
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        top: -50%;
+        border-radius: 50px;
+        box-shadow: -10px -10px 90px #f20044;
+      }
+
+      .heart::after {
+        content: "";
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background: #f20044;
+        right: -50%;
+        border-radius: 50px;
+        box-shadow: 10px 10px 90px #f20044;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      h1 {
+        color: aliceblue;
+        text-align: center;
+        font-family: "Press Start 2P", cursive;
+        margin: 0;
+        position: relative;
+        font-size: 16px;
+        text-shadow: 4px 4px 0 #000;
+        letter-spacing: 2px;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .btn {
+        font-family: "Press Start 2P", cursive;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #f20044;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        text-shadow: 2px 2px 0 #000;
+        transition: transform 0.2s;
+      }
+
+      .btn:hover {
+        transform: scale(1.1);
+      }
+
+      #noBtn {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .success-message {
+        color: white;
+        font-family: "Press Start 2P", cursive;
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+      }
+
+      .gif-container {
+        margin-top: 20px;
+        display: none;
+      }
+
+      .gif-container img {
+        max-width: 300px;
+        border-radius: 10px;
+      }
+
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="heart"></div>
+      <h1>Quieres ser el amor de mi vida?</h1>
+      <div class="buttons-container">
+        <button id="siBtn" class="btn">Sí</button>
+        <button id="noBtn" class="btn">No</button>
+      </div>
+      <div class="success-message">
+        ¡Yeyyyy! Te amo mi vida, ahora vamos al registro a poner ese qlo a mi
+        nombre... Por que vas a ser solo mía
+      </div>
+      <div class="gif-container">
+        <img
+          src="https://tenor.com/view/helluvaboss-moxxie-millie-gif-23739525"
+          alt="Celebración"
+        />
+      </div>
+    </div>
+
+    <script>
+      const noBtn = document.getElementById("noBtn");
+      const siBtn = document.getElementById("siBtn");
+      const successMessage = document.querySelector(".success-message");
+      const gifContainer = document.querySelector(".gif-container");
+      let isFirstMove = true;
+
+      // Función para mover el botón No a una posición aleatoria
+      function moveButton() {
+        if (isFirstMove) {
+          // En el primer movimiento, cambiar a posición absoluta
+          noBtn.style.position = "absolute";
+          isFirstMove = false;
+        }
+
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
+      }
+
+      // Evento para el botón No
+      noBtn.addEventListener("mouseover", moveButton);
+
+      // Evento para el botón Sí
+      siBtn.addEventListener("click", () => {
+        noBtn.style.display = "none";
+        siBtn.style.display = "none";
+        successMessage.style.display = "block";
+        gifContainer.style.display = "block";
+      });
+    </script>
+  </body>
+</html>
